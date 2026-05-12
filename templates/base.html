@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Inventario{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+                    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow p-3 px-5 mb-6 rounded">
+                        <div class="container-fluid">
+                            <a class="navbar-brand" href="#">Inventario</a>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarNav">
+                                    <ul class="nav justify-content-center">
+                                        <li class="nav-item ">
+                                            <a class="nav-link text-dark active" aria-current="page" href="#">Active</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link text-dark" href="#">Link</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link text-dark" href="#">Link</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link text-dark disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                                        </li>
+                                    </ul>
+                                <ul class="navbar-nav ms-auto">
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link text-dark dropdown-toggle" href="#" id="userDropdown" role="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            Usuario
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                            <li><a class="dropdown-item" href="#">Perfil</a></li>
+                                            <li><a class="dropdown-item" href="#">Configuración</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+    </header>
+
+<body class="d-flex flex-column min-vh-100">
+
+
+    <!-- El "flex-grow-1" empuja el footer hacia abajo -->
+    <main class="container mt-4 flex-grow-1">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-dark text-light pt-4 mt-5">
+        <div class="container">
+            <div class="row footer-content">
+                <div class="col-md-4 footer-section about">
+                    <h3>Mi Sitio</h3>
+                    <p>Descripción breve de la web.</p>
+                </div>
+                <div class="col-md-4 footer-section links">
+                    <h4>Enlaces</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-decoration-none text-light">Inicio</a></li>
+                        <li><a href="#" class="text-decoration-none text-light">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 footer-section social">
+                    <h4>Síguenos</h4>
+                    <!-- Iconos aquí -->
+                    <p>Redes sociales...</p>
+                </div>
+            </div>
+            
+            <div class="text-center py-3 border-top mt-3 footer-bottom">
+                &copy; 2026 TuNombre | Todos los derechos reservados
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
