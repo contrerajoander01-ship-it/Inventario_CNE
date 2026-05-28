@@ -4,8 +4,37 @@ from .forms import EquipoForm, UbicacionForm, EmpleadosForm, AsignacionForm
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import Http404
+from django.db.models import Q
 
 # Create your views here.
+def buscar_global(request):
+    query = request.GET.get('buscar','') #obtenemos el termino de busqueda
+    equipo = Equipo.objects.filter(
+        Q(nombre__icontains=query) | Q(serial__icontains=query) | Q(inventario__icontains=query)
+    ).order_by('id')
+    empleado = Empleados.objects.filter(
+        Q(nombre__icontains=query) | Q(apellido__icontains=query) | Q(cedula__icontains=query)
+    ).order_by('id')
+
+    ubicacion = Ubicacion.objects.filter(
+        Q(ubicacion__icontains=query)
+    ).order_by('id')
+
+    asignacion = Asignacion.objects.filter(
+        Q(empleado__nombre__icontains=query) |
+        Q(equipo__nombre__icontains=query) |
+        Q(ubicacion__ubicacion__icontains=query)
+    ).order_by('id')
+
+    context = {
+        'buscar' : query,
+        'equipo' : equipo,
+        'empleado' : empleado,
+        'ubicacion' : ubicacion,
+        'asignacion' : asignacion
+    }
+
+    return render(request, 'search/searchinv.html', context)
 
 def dashboard(request):
     total_equipos = Equipo.objects.count()
@@ -17,7 +46,6 @@ def dashboard(request):
         'total_asignaciones': total_asignaciones
     }
     return render(request, 'app/dashboard.html', data)
-
 
 def equipos(request):
     data = {
@@ -48,6 +76,7 @@ def listar(request):
     data = {
         'entity': equipos,
         'paginator': paginator
+
     }
 
     return render(request, 'app/equipos/listar.html', data)
@@ -89,8 +118,16 @@ def ubicacion(request):
 
 def listarubicaciones(request):
     ubicaciones = Ubicacion.objects.all()
+    page = request.GET.get('page',1)
+    paginator = Paginator(ubicaciones, 5)
+    try:
+        ubicaciones = paginator.page(page)
+    except:
+        raise Http404
+
     data = {
-        'ubicaciones': ubicaciones
+        'entity': ubicaciones,
+        'paginator': paginator
     }
     return render(request, 'app/ubicacion/listarb.html', data)
 
@@ -131,8 +168,16 @@ def empleados(request):
 
 def listadeempleados(request):
     empleados = Empleados.objects.all()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(empleados, 5)
+    try:
+        empleados = paginator.page(page)
+    except: 
+        raise Http404
+
     data = {
-        'empleados': empleados
+        'entity': empleados,
+        'paginator': paginator
     }
     return render(request, 'app/empleados/listaempleados.html', data)
 
@@ -173,8 +218,15 @@ def asignacion(request):
 
 def lista_asignaciones(request):
     asignaciones = Asignacion.objects.all()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(asignaciones, 5)
+    try:
+        asignaciones = paginator.page(page)
+    except: 
+        raise Http404
     data = {
-        'asignaciones': asignaciones
+        'entity': asignaciones,
+        'paginator': paginator
     }
     return render(request, 'app/asignacion/listadoa.html', data)
 

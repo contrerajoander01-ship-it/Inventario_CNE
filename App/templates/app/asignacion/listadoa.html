@@ -22,7 +22,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for asignacion in asignaciones %}
+                {% for asignacion in entity %}
                 <tr>
                     <td>{{ asignacion.empleado }}</td>
                     <td>{{ asignacion.equipo }}</td>
@@ -43,6 +43,9 @@
                 {% endfor %}
             </tbody>
         </table>
+        <div>
+            {% include 'app/pagination.html' %}
+        </div>
     </div>
 </div>
 

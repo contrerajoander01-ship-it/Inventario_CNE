@@ -17,4 +17,6 @@ urlpatterns = [
     path('asignacion/', views.asignacion, name='asignacion'),
     path('asignacion/listadoa/', views.lista_asignaciones, name='lista_asignaciones'),
     path('asignacion/eliminarasignacion/<int:id>/', views.eliminarasignacion, name='eliminarasignacion'),
+    path('buscar/', views.buscar_global, name='buscar'),
 ]
+
